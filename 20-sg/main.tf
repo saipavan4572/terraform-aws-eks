@@ -60,7 +60,7 @@ module "vpn" {
 }
 
 resource "aws_security_group_rule" "bastion_public" {
-  type              = "ingress"
+  type              = "ingress"             ## generally it should not be public instead it will be a company elastic-ip or home internet ip
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
