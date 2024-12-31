@@ -2,7 +2,8 @@ resource "aws_key_pair" "eks" {
   key_name   = "eks"
   # you can paste the public key directly like this
   #public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL6ONJth+DzeXbU3oGATxjVmoRjPepdl7sBuPzzQT2Nc sivak@BOOK-I6CR3LQ85Q"
-  public_key = file("~/.ssh/eks.pub")   # provide your own key here
+  #public_key = file("~/.ssh/eks.pub")   # provide your own key here
+  public_key = file("D:/Personal/DevOps/JoinDevOps-SivaKumarReddy/Practice/test-keypair-3.pub")
   # ~ means windows home directory
 }
 
@@ -10,11 +11,12 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
   #cluster_service_ipv4_cidr = var.cluster_service_ipv4_cidr
-  cluster_name    = "${var.project_name}-${var.environment}"
+  cluster_name    = "${var.project_name}-${var.environment}"        # expense-dev
   
   #cluster_version = "1.29"   # we can give the 1.29 version before the eks cluster upgrade
   cluster_version = "1.30"    # we can give 1.30 as the version during the upgrade
-  
+  #cluster_version = "1.31"
+
   # it should be false in PROD environments
   cluster_endpoint_public_access = true
 
@@ -50,7 +52,8 @@ module "eks" {
       min_size      = 2
       max_size      = 10
       desired_size  = 2
-      capacity_type = "SPOT"
+      #capacity_type = "SPOT"         ##usually for practice we can use SPOT instances.
+      capacity_type  = "ON_DEMAND"    
       iam_role_additional_policies = {
         AmazonEBSCSIDriverPolicy          = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
         AmazonElasticFileSystemFullAccess = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
@@ -66,7 +69,8 @@ module "eks" {
     #   min_size      = 2
     #   max_size      = 10
     #   desired_size  = 2
-    #   capacity_type = "SPOT"
+    #   #capacity_type = "SPOT"         ##usually for practice we can use SPOT instances.
+    #   capacity_type  = "ON_DEMAND"
     #   iam_role_additional_policies = {
     #     AmazonEBSCSIDriverPolicy          = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
     #     AmazonElasticFileSystemFullAccess = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
