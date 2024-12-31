@@ -99,6 +99,10 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n ku
 kubectl get pods -n kube-system
 ```
 
+* Create namespace for expense
+```
+kubectl create namespace expense
+```
 
 
 
