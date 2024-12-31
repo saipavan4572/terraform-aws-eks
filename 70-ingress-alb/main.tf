@@ -5,7 +5,8 @@ resource "aws_lb" "ingress_alb" {
   security_groups    = [data.aws_ssm_parameter.ingress_sg_id.value]
   subnets            = split(",", data.aws_ssm_parameter.public_subnet_ids.value)
 
-  enable_deletion_protection = false
+  enable_deletion_protection = false    ## usually it is true in production.
+  ## If true, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. Defaults to false
 
   tags = merge(
     var.common_tags,
