@@ -17,8 +17,9 @@ module "eks" {
   cluster_version = "1.30"    # we can give 1.30 as the version during the upgrade
   #cluster_version = "1.31"
 
-  # it should be false in PROD environments
-  cluster_endpoint_public_access = true
+
+  cluster_endpoint_public_access = true  # it should be false in PROD environments
+  # Indicates whether or not the Amazon EKS public API server endpoint is enabled
 
   vpc_id                   = local.vpc_id
   subnet_ids               = split(",", local.private_subnet_ids)       # we should not expose eks node to the public, so use private subnets.
